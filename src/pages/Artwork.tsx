@@ -64,7 +64,7 @@ const Artwork: React.FC = () => {
             </div>
 
             {/* Actions */}
-            <div className="mt-8 flex gap-4">
+            <div className="max-sm:-ml-4 mt-8 flex gap-4">
               <button className="px-6 py-3 bg-indigo-500 text-white font-semibold rounded-md shadow-md hover:scale-105 transition">
                 Add to Favorites
               </button>
