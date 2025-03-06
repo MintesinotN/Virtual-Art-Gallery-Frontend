@@ -1,38 +1,30 @@
+import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
+import useSWR from "swr";
 
-const artists = [
-  {
-    id: 1,
-    name: "John Doe",
-    bio: "A visionary abstract artist with a passion for vibrant colors.",
-    avatar:
-      "https://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    bio: "Specializes in modern portrait art with deep emotional expressions.",
-    avatar:
-      "https://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg",
-  },
-  {
-    id: 3,
-    name: "Emily Brown",
-    bio: "A landscape painter capturing the beauty of nature.",
-    avatar:
-      "https://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg",
-  },
-  {
-    id: 4,
-    name: "Michael Lee",
-    bio: "A digital artist pushing the boundaries of creativity.",
-    avatar:
-      "https://upload.wikimedia.org/wikipedia/commons/9/98/Pablo_picasso_1.jpg",
-  },
-];
+type artists = {
+  _id: string;
+  name: string;
+  profilePic: string;
+  bio: string;
+};
+
+const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 const Artists: React.FC = () => {
+  const { data: artists, error } = useSWR(
+    "http://localhost:5000/api/users/artists",
+    fetcher
+  );
+
+  if (error)
+    return (
+      <p className="text-red-500 min-h-[70vh] text-center">
+        Failed to load artist data.
+      </p>
+    );
+
   return (
     <div className="min-h-[80vh] bg-gray-100 dark:bg-[#121212] text-gray-900 dark:text-gray-200">
       {/* Header */}
@@ -47,13 +39,13 @@ const Artists: React.FC = () => {
       {/* Artists Grid */}
       <section className="py-16">
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mx-6 sm:mx-12 md:mx-16 lg:mx-8 xl:mx-32 gap-8">
-          {artists.map((artist) => (
+          {artists?.map((artist: artists) => (
             <div
-              key={artist.id}
+              key={artist._id}
               className="bg-[url(/assets/background1.jpg)] bg-no-repeat bg-center bg-cover bg-white dark:bg-[#1E1E1E] rounded-sm shadow-lg pt-6 flex flex-col items-center hover:scale-105 transition-transform duration-300"
             >
               <img
-                src={artist.avatar}
+                src={artist.profilePic}
                 alt={artist.name}
                 className="w-36 h-36 rounded-full"
               />
@@ -62,7 +54,7 @@ const Artists: React.FC = () => {
                 {artist.bio}
               </p>
               <Link
-                to={`/artist/${artist.id}`}
+                to={`/artist/${artist._id}`}
                 className="text-gray-400 dark:text-gray-300 bg-gradient-to-t from-black/100 to-black/0 w-full text-center py-2"
               >
                 View Profile
