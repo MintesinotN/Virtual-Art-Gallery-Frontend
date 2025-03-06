@@ -20,14 +20,14 @@ const LandingPage: React.FC = () => {
   return (
     <div>
       {/* Hero Section */}
-      <section className="h-[80vh] flex flex-col justify-center items-center text-center p-6 bg-cover bg-center">
+      <section className="bg-[url(./assets/landingbackground.jpg)] dark:bg-[url(./assets/darklandingbackground.jpg)] bg-no-repeat text-white h-[80vh] flex flex-col justify-center items-center text-center p-6 bg-cover bg-center">
         <h1 className="max-sm:text-4xl text-5xl font-bold mb-4">Discover Timeless Art</h1>
         <p className="text-lg mb-6 max-w-2xl">
           Experience breathtaking artworks, connect with artists, and curate your collection.
         </p>
         <Link
           to="/signup"
-          className="bg-gray-900 text-white px-6 py-3 rounded-lg hover:bg-gray-700 dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-300 transition"
+          className="text-gray-900 bg-white px-6 py-3 rounded-lg dark:bg-gray-100 dark:text-gray-900 dark:hover:bg-gray-300 hover:bg-gray-300 transition select-none"
         >
           Get Started
         </Link>
@@ -49,14 +49,14 @@ const LandingPage: React.FC = () => {
       </section>
 
       {/* Call to Action */}
-      <section className="sm:rounded-sm sm:mx-16 md:mx-32 lg:mx-48 xl:mx-64 sm:mb-16 py-16 bg-gray-900 text-white dark:bg-[#1A1A1A] dark:text-gray-300 text-center px-6">
-        <h2 className="text-4xl font-bold mb-4">Join the Art Movement</h2>
+      <section className="bg-[url(./assets/background-1.jpg)] dark:bg-[url(./assets/background-2.jpg)] bg-no-repeat bg-cover bg-[center] sm:rounded-sm sm:mx-16 md:mx-32 lg:mx-48 xl:mx-64 sm:mb-16 py-16 bg-gray-900 text-white dark:bg-[#1A1A1A] dark:text-gray-300 text-center px-6">
+        <h2 className="max-sm:text-3xl text-4xl font-bold mb-4">Join the Art Movement</h2>
         <p className="text-lg mb-6 max-w-2xl mx-auto">
           Become part of an exclusive art community. Showcase your creations, discover stunning artworks, and connect with artists worldwide.
         </p>
         <Link
           to="/signup"
-          className="inline-block bg-gray-200 text-gray-900 font-semibold px-6 py-3 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700"
+          className="inline-block bg-gray-200 text-gray-900 font-semibold px-6 py-3 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:bg-gray-300 dark:bg-gray-800 dark:text-gray-200 dark:hover:bg-gray-700 select-none"
         >
           Sign Up Now
         </Link>

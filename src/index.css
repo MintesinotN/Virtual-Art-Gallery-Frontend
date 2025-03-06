@@ -1,12 +1,43 @@
-@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Outfit:wght@100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=MonteCarlo&family=Rum+Raisin&display=swap');
 @import "tailwindcss";
 
+* {
+  scroll-behavior: smooth;
+}
 
 .lobster-regular {
   font-family: "Lobster", serif;
   font-weight: 400;
   font-style: normal;
 }
+
+.montecarlo-regular {
+  font-family: "MonteCarlo", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.rum-raisin-regular {
+  font-family: "Rum Raisin", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+
+.toiterate::-webkit-scrollbar {
+  height: 0px;
+  width: 8px;
+  overflow: hidden;
+}
+  ::-webkit-scrollbar-track {
+  /* background: #f1f1f1; */
+  border-radius: 16px;
+}
+  ::-webkit-scrollbar-thumb {
+  /* background: #222222; */
+  border-radius: 10px;
+}
+
 
 
 @plugin "tailwindcss-animate";
