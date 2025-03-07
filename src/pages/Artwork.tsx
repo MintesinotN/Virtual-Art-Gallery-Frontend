@@ -23,7 +23,7 @@ const Artwork: React.FC = () => {
   if (!artwork) {
     return (
       <div className="text-center text-gray-500 mt-20 min-h-[70vh]">
-        Artwork not found
+        Artwork is loading
       </div>
     );
   }
@@ -32,7 +32,7 @@ const Artwork: React.FC = () => {
     <div className="min-h-[80vh] bg-gray-100 dark:bg-[#121212] text-gray-900 dark:text-gray-200">
       {/* Artwork Details Section */}
       <section className="py-16 px-6">
-        <div className="bg-[url(/assets/background1.jpg)] bg-no-repeat bg-center bg-cover max-w-5xl mx-auto bg-white dark:bg-[#1E1E1E] rounded-xs shadow-lg overflow-hidden">
+        <div className="not-dark:bg-[url(/assets/background1.jpg)] bg-no-repeat bg-center bg-cover max-w-5xl mx-auto bg-white dark:bg-[#1E1E1E] rounded-xs shadow-lg overflow-hidden">
           <img
             src={artwork.imageUrl}
             alt={artwork.title}
@@ -41,7 +41,7 @@ const Artwork: React.FC = () => {
           <div className="p-6">
             <h1 className="text-3xl font-bold">{artwork.title}</h1>
             <p className="text-lg text-gray-600 dark:text-gray-400">
-              by {artwork.artist.name}
+              by {artwork.artist?.name}
             </p>
             <p className="mt-4 text-gray-700 dark:text-gray-300">
               {artwork.description}
