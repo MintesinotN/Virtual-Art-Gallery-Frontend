@@ -15,7 +15,6 @@ type artworks = {
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 const Display: React.FC = () => {
-  
   const { data: artworks, error } = useSWR(
     `http://localhost:5000/api/artworks`,
     fetcher
@@ -51,8 +50,10 @@ const Display: React.FC = () => {
               className="min-h-50 max-h-120 w-full object-cover"
             />
             <div className="hidden group-hover:block montecarlo-regular p-2 absolute bottom-0 text-white bg-gradient-to-t from-black/100 to-black/0 w-full">
-              <h3 className="text-xl font-semibold">{artwork.title}</h3>
-              <p>by {artwork.artist?.name}</p>
+              <div className="flex justify-between items-center">
+                <h3 className="text-xl font-semibold">{artwork.title}</h3>
+                <p>by {artwork.artist?.name}</p>
+              </div>
               <Link
                 to={`/artwork/${artwork._id}`}
                 className="text-purple-500 hover:underline mt-2 inline-block"
