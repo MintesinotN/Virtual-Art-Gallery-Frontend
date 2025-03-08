@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import axios from "axios";
 import { DevTool } from "@hookform/devtools";
+import { StoreContext } from "@/context/StoreContext";
+import { StoreContextType } from "@/types/data.types";
 
 type FormData = {
   name: string;
@@ -12,6 +14,8 @@ type FormData = {
 };
 
 const SignUp: React.FC = () => {
+  const { selectedRole } = useContext(StoreContext) as StoreContextType;
+
   const { register, handleSubmit, control } = useForm<FormData>();
 
   const [isSignUp, setIsSignUp] = useState(true);
@@ -29,7 +33,10 @@ const SignUp: React.FC = () => {
     console.log(data);
 
     try {
-      const response = await axios.post(newUrl, data);
+      const response = await axios.post(newUrl, {
+        ...data,
+        ...(isSignUp ? { role: selectedRole } : {}),
+      });
       sessionStorage.setItem("token", response.data.token);
 
       navigate("/home");
