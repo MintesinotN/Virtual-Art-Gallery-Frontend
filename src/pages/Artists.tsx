@@ -28,12 +28,21 @@ const Artists: React.FC = () => {
   return (
     <div className="min-h-[80vh] bg-gray-100 dark:bg-[#121212] text-gray-900 dark:text-gray-200">
       {/* Header */}
-      <section className="bg-[url(./assets/lightartistpage.jpg)] dark:bg-[url(./assets/artistpage.jpg)] bg-no-repeat bg-cover bg-center py-16 px-6 text-center sm:mx-12 md:mx-24 lg:mx-46 bg-white dark:bg-[#1E1E1E] dark:text-white">
-        <h2 className="text-4xl font-semibold">Meet Our Artists</h2>
-        <p className="text-lg max-w-2xl mx-auto mt-4">
-          Discover talented artists from around the world and explore their
-          stunning artworks.
-        </p>
+      <section className="relative py-24 px-6 sm:px-12 md:px-24 lg:px-48 bg-gradient-to-br from-[#fdfbfb] to-[#ebedee] dark:from-[#1a1a1a] dark:to-[#2a2a2a] text-center overflow-hidden">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white tracking-tight mb-4 animate-fade-in-up">
+            Meet Our Artists
+          </h2>
+          <p className="text-lg md:text-xl text-gray-600 dark:text-gray-300 leading-relaxed animate-fade-in-up delay-100">
+            Step into a world of creativity and explore the stories behind the
+            brushstrokes of our talented global artists.
+          </p>
+          <div className="mt-8 flex justify-center space-x-2 animate-fade-in-up delay-200">
+            <span className="w-2 h-2 bg-purple-500 rounded-full" />
+            <span className="w-2 h-2 bg-pink-500 rounded-full" />
+            <span className="w-2 h-2 bg-yellow-500 rounded-full" />
+          </div>
+        </div>
       </section>
 
       {/* Artists Grid */}
@@ -42,23 +51,37 @@ const Artists: React.FC = () => {
           {artists?.map((artist: artists) => (
             <div
               key={artist._id}
-              className="bg-[url(/assets/background1.jpg)] bg-no-repeat bg-center bg-cover bg-white dark:bg-[#1E1E1E] rounded-sm shadow-lg pt-6 flex flex-col items-center hover:scale-105 transition-transform duration-300"
+              className="relative rounded-2xl backdrop-blur-md bg-white/70 dark:bg-white/5 shadow-xl overflow-hidden transition-transform duration-300 hover:scale-[1.02] group border border-gray-200 dark:border-gray-700"
             >
-              <img
-                src={artist.profilePic}
-                alt={artist.name}
-                className="w-36 h-36 rounded-full"
-              />
-              <h3 className="text-xl font-semibold mt-4">{artist.name}</h3>
-              <p className="text-sm text-gray-600 dark:text-gray-400 text-center">
-                {artist.bio}
-              </p>
-              <Link
-                to={`/artist/${artist._id}`}
-                className="text-gray-400 dark:text-gray-300 bg-gradient-to-t from-black/100 to-black/0 w-full text-center py-2"
-              >
-                View Profile
-              </Link>
+              {/* Header - Artist Info */}
+              <div className="flex items-center gap-4 p-6">
+                <img
+                  src={artist.profilePic}
+                  alt={artist.name}
+                  className="w-20 h-20 md:w-24 md:h-24 rounded-full object-cover border-2 border-white dark:border-gray-600 shadow-lg"
+                />
+                <div>
+                  <h3 className="text-xl md:text-2xl font-semibold text-gray-900 dark:text-white">
+                    {artist.name}
+                  </h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+                    Featured Artist
+                  </p>
+                </div>
+              </div>
+              {/* Bio Section */}
+              <div className="px-6 pb-4 text-gray-700 dark:text-gray-300 text-sm leading-relaxed">
+                <p className="line-clamp-3">{artist.bio}</p>
+              </div>
+              {/* CTA Button */}
+              <div className="px-6 pb-6">
+                <Link
+                  to={`/artist/${artist._id}`}
+                  className="inline-block w-full text-center bg-purple-600 hover:bg-purple-700 transition-colors text-white py-2 rounded-md font-medium text-sm"
+                >
+                  View Profile
+                </Link>
+              </div>
             </div>
           ))}
         </div>
