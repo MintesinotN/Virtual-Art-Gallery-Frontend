@@ -2,6 +2,7 @@ import axios from "axios";
 import React from "react";
 import { Link } from "react-router-dom";
 import useSWR from "swr";
+import Like from "./Like";
 
 type artworks = {
   _id: string;
@@ -10,6 +11,7 @@ type artworks = {
   };
   title: string;
   imageUrl: string;
+  likesCount: number;
 };
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
@@ -54,12 +56,20 @@ const Display: React.FC = () => {
                 <h3 className="text-xl font-semibold">{artwork.title}</h3>
                 <p>by {artwork.artist?.name}</p>
               </div>
-              <Link
-                to={`/artwork/${artwork._id}`}
-                className="text-purple-500 hover:underline mt-2 inline-block"
-              >
-                View Details
-              </Link>
+              <div className="flex justify-between items-center">
+                <Link
+                  to={`/artwork/${artwork._id}`}
+                  className="text-purple-500 hover:underline mt-2 inline-block"
+                >
+                  View Details
+                </Link>
+                <div className="flex items-center gap-1">
+                  <span className="text-xs font-serif font-extralight text-gray-400">
+                    {artwork.likesCount == 0 ? "" : artwork.likesCount}
+                  </span>
+                  <Like />
+                </div>
+              </div>
             </div>
           </div>
         ))}
