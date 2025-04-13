@@ -3,12 +3,13 @@ import React from "react";
 import { Link } from "react-router-dom";
 import useSWR from "swr";
 import Like from "./Like";
+import { Heart } from "lucide-react";
 
-type artworks = {
+type Artwork = {
   _id: string;
   artist: {
     name: string;
-  };
+  } | null;
   title: string;
   imageUrl: string;
   likesCount: number;
@@ -17,56 +18,70 @@ type artworks = {
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
 
 const Display: React.FC = () => {
-  const { data: artworks, error } = useSWR(
-    `http://localhost:5000/api/artworks`,
+  const { data: artworks, error } = useSWR<Artwork[]>(
+    "http://localhost:5000/api/artworks",
     fetcher
   );
 
-  if (error)
+  if (error) {
     return (
-      <p className="text-red-500 min-h-[70vh] text-center">
-        Failed to load artwork data.
-      </p>
+      <div className="text-center text-red-500 mt-20 min-h-[70vh]">
+        Something went wrong. Please try again later.
+      </div>
     );
+  }
 
   if (!artworks) {
     return (
       <div className="text-center text-gray-500 mt-20 min-h-[70vh]">
-        Artwork is loading
+        Loading artworks... Please wait.
       </div>
     );
   }
 
   return (
-    <div className="py-16 p-6">
-      <div className="columns-1 sm:columns-3 md:columns-4 sm:-space-x-3.5 max-xl:space-y-0.5 space-y-0.5 max-w-6xl sm:max-md:mx-8 mx-auto">
-        {/* Sample Artwork Cards */}
-        {artworks?.map((artwork: artworks) => (
+    <section className="py-20 px-6 max-w-7xl mx-auto">
+      <h2 className="text-4xl font-semibold text-center mb-12 lobster-regular">
+        Featured Artworks
+      </h2>
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+        {artworks.map((artwork) => (
           <div
             key={artwork._id}
-            className="group h-fit relative bg-white dark:bg-[#1E1E1E] rounded-xs shadow-lg overflow-hidden duration-300 hover:contrast-120"
+            className="group relative bg-gradient-to-t from-transparent to-black rounded-2xl overflow-hidden shadow-xl transition-all duration-500 transform hover:scale-105"
           >
-            <img
-              src={artwork.imageUrl}
-              alt={artwork.artist?.name}
-              className="min-h-50 max-h-120 w-full object-cover"
-            />
-            <div className="hidden group-hover:block montecarlo-regular p-2 absolute bottom-0 text-white bg-gradient-to-t from-black/100 to-black/0 w-full">
-              <div className="flex justify-between items-center">
-                <h3 className="text-xl font-semibold">{artwork.title}</h3>
-                <p>by {artwork.artist?.name}</p>
+            <div className="overflow-hidden aspect-[4/5] rounded-t-2xl">
+              <img
+                src={artwork.imageUrl}
+                alt={artwork.title}
+                className="w-full h-full object-cover object-center group-hover:scale-110 transition-transform duration-500 ease-in-out"
+                loading="lazy"
+              />
+            </div>
+
+            <div className="p-5 flex flex-col justify-between h-[120px] bg-white dark:bg-[#1E1E1E] opacity-90 group-hover:opacity-100 transition-opacity duration-300 rounded-b-2xl">
+              <div>
+                <h3 className="text-2xl font-semibold text-gray-900 dark:text-white line-clamp-2">
+                  {artwork.title}
+                </h3>
+                <p className="text-sm text-gray-500 dark:text-gray-400">
+                  by {artwork.artist?.name || "Unknown Artist"}
+                </p>
               </div>
-              <div className="flex justify-between items-center">
+
+              <div className="mt-4 flex justify-between items-center">
                 <Link
                   to={`/artwork/${artwork._id}`}
-                  className="text-purple-500 hover:underline mt-2 inline-block"
+                  className="text-sm font-medium text-purple-600 dark:text-purple-400 hover:underline transition-all duration-200"
                 >
                   View Details
                 </Link>
-                <div className="flex items-center gap-1">
-                  <span className="text-xs font-serif font-extralight text-gray-400">
-                    {artwork.likesCount == 0 ? "" : artwork.likesCount}
-                  </span>
+
+                <div className="flex items-center gap-2 text-gray-400 dark:text-gray-300">
+                  {artwork.likesCount > 0 && (
+                    <span className="text-xs">{artwork.likesCount}</span>
+                  )}
+                  <Heart size={16} className="fill-red-500 stroke-none" />
                   <Like />
                 </div>
               </div>
@@ -74,7 +89,7 @@ const Display: React.FC = () => {
           </div>
         ))}
       </div>
-    </div>
+    </section>
   );
 };
 

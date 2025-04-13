@@ -2,13 +2,13 @@ import Explore from "@/components/Explore";
 import Display from "@/components/Display";
 
 const Home: React.FC = () => {
-  type artists = {
+  type Artist = {
     name: string;
     title?: string;
     image: string;
   };
 
-  const Artists: artists[] = [
+  const Artists: Artist[] = [
     {
       name: "Pablo Picasso",
       image:
@@ -26,7 +26,7 @@ const Home: React.FC = () => {
     },
   ];
 
-  const Artworks: artists[] = [
+  const Artworks: Artist[] = [
     {
       name: "Michelangelo",
       title: "Sistine Chapel ceiling",
@@ -50,78 +50,76 @@ const Home: React.FC = () => {
   return (
     <div className="min-h-screen bg-gray-100 dark:bg-[#121212] text-gray-900 dark:text-gray-200">
       {/* Hero Section */}
-      <section className="bg-[url(./assets/homebackground.jpg)] dark:bg-[url(./assets/darkhomebackground2.jpg)] bg-cover bg-no-repeat  h-[80vh] bg-[center] flex flex-col items-center justify-center text-center px-6 bg-gray-900 dark:bg-[#1E1E1E] text-white">
-        <h1 className="rum-raisin-regular text-5xl font-bold mb-4">
-          Experience Art Like Never Before
-        </h1>
-        <p className="text-lg mb-6 max-w-2xl">
-          Discover breathtaking artworks, connect with talented artists, and
-          immerse yourself in a world of creativity.
-        </p>
-        <a
-          href="#explore"
-          className="bg-white text-gray-900 font-semibold px-6 py-3 rounded-md shadow-md transition transform hover:scale-105 select-none"
-        >
-          Explore Now
-        </a>
+      <section className="relative bg-[url('/assets/homebackground.jpg')] dark:bg-[url('/assets/darkhomebackground2.jpg')] bg-cover bg-no-repeat h-screen bg-center flex items-center justify-center text-center px-6 text-white">
+        <div className="bg-black/60 p-10 rounded-lg backdrop-blur-sm max-w-3xl">
+          <h1 className="rum-raisin-regular text-5xl font-bold mb-4">
+            Experience Art Like Never Before
+          </h1>
+          <p className="text-lg mb-6">
+            Discover breathtaking artworks, connect with legendary artists, and
+            immerse yourself in a world of creativity.
+          </p>
+          <a
+            href="#explore"
+            className="bg-white text-gray-900 font-semibold px-6 py-3 rounded-md shadow-md hover:scale-105 transition"
+          >
+            Explore Now
+          </a>
+        </div>
       </section>
 
       {/* Featured Artworks */}
-      <section className="py-16 px-6">
-        <h2 className="text-3xl font-semibold text-center mb-8 lobster-regular">
+      <section className="py-20 px-6 bg-white dark:bg-[#1A1A1A]">
+        <h2 className="text-4xl font-semibold text-center mb-12 lobster-regular">
           Featured Artworks
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 max-xl:gap-3 gap-6 max-w-6xl sm:max-md:mx-24 mx-auto">
-          {/* Sample Artwork Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {Artworks.map((art) => (
             <div
               key={art.name}
-              className="mb-4 h-fit relative bg-white dark:bg-[#1E1E1E] rounded-xs shadow-lg overflow-hidden duration-300 hover:contrast-125"
+              className="group relative overflow-hidden rounded-lg shadow-md bg-white dark:bg-[#1E1E1E] hover:shadow-xl transition"
             >
-              <img src={art.image} alt="Artwork" className="max-h-120 w-full" />
-              <div className="montecarlo-regular px-2 absolute bottom-0 p-4 text-white bg-gradient-to-t from-black/100 to-black/0 w-full">
+              <img
+                src={art.image}
+                alt={art.title}
+                className="w-full h-80 object-cover group-hover:scale-105 transition-transform"
+              />
+              <div className="absolute bottom-0 bg-gradient-to-t from-black via-transparent to-transparent p-4 text-white w-full">
                 <h3 className="text-xl font-semibold">{art.title}</h3>
-                <p>by {art.name}</p>
-                {/* <Link to="/artwork/1" className="text-purple-500 hover:underline mt-2 inline-block">
-                  View Details
-                </Link> */}
+                <p className="text-sm">by {art.name}</p>
               </div>
             </div>
           ))}
         </div>
       </section>
 
-      <div id="explore" className="scroll-mt-[20vh] mb-8">
+      {/* Explore and Display Sections */}
+      <div id="explore" className="scroll-mt-[15vh]">
         <Explore />
         <Display />
       </div>
 
       {/* Featured Artists */}
-      <section className="py-16 px-6 bg-gray-200 dark:bg-[#181818]">
-        <h2 className="text-3xl font-semibold text-center mb-8 lobster-regular">
+      <section className="py-20 px-6 bg-gray-100 dark:bg-[#181818]">
+        <h2 className="text-4xl font-semibold text-center mb-12 lobster-regular">
           Legend Artists
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-3  max-xl:gap-3 gap-6 max-w-6xl sm:max-md:mx-24 mx-auto">
-          {/* Sample Artist Profiles */}
-          {Artists.map((artist: artists) => (
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {Artists.map((artist) => (
             <div
               key={artist.name}
-              className="group h-fit max-h-96 relative bg-white dark:bg-[#1E1E1E] rounded-xs shadow-lg overflow-hidden text-center"
+              className="group overflow-hidden rounded-lg shadow-md bg-white dark:bg-[#1E1E1E] text-center"
             >
               <img
                 src={artist.image}
-                alt="Artist"
-                className="mx-auto object-fill"
+                alt={artist.name}
+                className="w-full h-80 object-cover group-hover:scale-105 transition-transform"
               />
-              <div className="hidden group-hover:block px-4 py-2 absolute bottom-0 text-white bg-gradient-to-t from-black/100 to-black/0 w-full">
-                <h3 className="text-lg font-semibold">{artist.name}</h3>
-                <p className="text-sm">
-                  Painter, Sculptor, Printmaker, Ceramicist, and Theatre
-                  designer
+              <div className="p-4">
+                <h3 className="text-xl font-semibold">{artist.name}</h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 mt-2">
+                  Painter, Sculptor, Printmaker, Ceramicist, Theatre Designer
                 </p>
-                {/* <Link to="/artist/1" className="text-gray-200 mt-2 inline-block">
-                View Profile
-              </Link> */}
               </div>
             </div>
           ))}

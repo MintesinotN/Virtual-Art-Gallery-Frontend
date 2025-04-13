@@ -11,8 +11,8 @@ const UserProfile = () => {
   const { data: profile, error } = useSWR("http://localhost:5000/api/users/profile", fetcher);
   const [isEditing, setIsEditing] = useState(false);
   
-  if (error) return <div className="h-[70vh] text-center text-4xl">Error loading profile.</div>;
-  if (!profile) return <div className="h-[70vh] text-center text-4xl">Loading...</div>;
+  if (error) return <div className="h-[71vh] text-center text-4xl">Error loading profile.</div>;
+  if (!profile) return <div className="h-[71vh] text-center text-4xl">Loading...</div>;
   
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     mutate("http://localhost:5000/api/users/profile", { ...profile, [e.target.name]: e.target.value }, false);
